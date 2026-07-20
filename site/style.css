@@ -168,6 +168,16 @@ h3 {
 
 .figure-list p { margin: 0.35em 0 0; }
 
+.figure-list .src {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--dim);
+  margin-top: 0.6em;
+}
+
+.figure-list .src a { color: var(--dim); }
+.figure-list .src a:hover { color: var(--accent); }
+
 .cols {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
