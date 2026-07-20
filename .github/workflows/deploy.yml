@@ -1,0 +1,121 @@
+name: Deploy to DreamHost
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate HTML and internal links
+        run: |
+          python3 - <<'EOF'
+          import re, pathlib, html.parser, sys
+
+          class V(html.parser.HTMLParser):
+              VOID = {'meta','link','img','br','hr','input','area','base','col',
+                      'embed','source','track','wbr'}
+              def __init__(s):
+                  super().__init__(); s.stack = []; s.errs = []
+              def handle_starttag(s, t, a):
+                  if t not in s.VOID: s.stack.append(t)
+              def handle_endtag(s, t):
+                  if not s.stack or s.stack[-1] != t:
+                      s.errs.append(f"mismatched </{t}>")
+                  else:
+                      s.stack.pop()
+
+          ok = True
+          for p in pathlib.Path('.').glob('*/*.html'):
+              txt = p.read_text()
+              v = V(); v.feed(txt)
+              if v.errs or v.stack:
+                  ok = False
+                  print(f"::error file={p}::{v.errs} unclosed={v.stack}")
+              for m in re.findall(r'(?:href|src)="([^"]+)"', txt):
+                  if m.startswith(('http', 'mailto:', '#')):
+                      continue
+                  if not (p.parent / m.split('#')[0]).exists():
+                      ok = False
+                      print(f"::error file={p}::broken internal ref {m}")
+          print("validation", "passed" if ok else "FAILED")
+          sys.exit(0 if ok else 1)
+          EOF
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify deployment secrets
+        run: |
+          for s in DREAMHOST_HOST DREAMHOST_USER DREAMHOST_PASS; do
+            if [ -z "${!s}" ]; then
+              echo "::error::$s secret is not set"
+              exit 1
+            fi
+          done
+          echo "All required secrets are configured"
+        env:
+          DREAMHOST_HOST: ${{ secrets.DREAMHOST_HOST }}
+          DREAMHOST_USER: ${{ secrets.DREAMHOST_USER }}
+          DREAMHOST_PASS: ${{ secrets.DREAMHOST_PASS }}
+
+      - name: Deploy both sites via SFTP
+        env:
+          DREAMHOST_HOST: ${{ secrets.DREAMHOST_HOST }}
+          DREAMHOST_USER: ${{ secrets.DREAMHOST_USER }}
+          DREAMHOST_PASS: ${{ secrets.DREAMHOST_PASS }}
+          # Optional overrides; defaults follow DreamHost docroot convention.
+          MAIN_PATH: ${{ secrets.DREAMHOST_PATH_MAIN || 'alcock.net' }}
+          JASON_PATH: ${{ secrets.DREAMHOST_PATH_JASON || 'jason.alcock.net' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+          echo "Uploading alcock.net and jason.alcock.net..."
+
+          lftp -c "
+          set sftp:auto-confirm yes
+          set sftp:connect-program 'ssh -a -x'
+          open -u $DREAMHOST_USER,$DREAMHOST_PASS sftp://$DREAMHOST_HOST
+          mirror -R -v --delete site/ $MAIN_PATH/
+          mirror -R -v --delete jason/ $JASON_PATH/
+          bye
+          "
+
+          echo "Files uploaded successfully!"
+
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait for content to settle
+        run: sleep 5
+
+      - name: Verify live sites
+        run: |
+          fail=0
+          for url in https://alcock.net/ \
+                     https://alcock.net/famous-alcocks.html \
+                     https://alcock.net/name-history.html \
+                     https://alcock.net/join.html \
+                     https://jason.alcock.net/; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$url" || echo 000)
+            echo "$url -> HTTP $code"
+            [ "$code" = "200" ] || fail=1
+          done
+          curl -s https://alcock.net/join.html | grep -q "admin@alcock.net" || { echo "::error::join page missing contact address"; fail=1; }
+          curl -s https://jason.alcock.net/ | grep -q "Jason Alcock" || { echo "::error::personal site missing name"; fail=1; }
+          exit $fail

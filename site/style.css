@@ -1,0 +1,251 @@
+/* Alcock.net — heritage site for the Alcock name.
+   Warm parchment theme with the rooster (Bishop Alcock's rebus) as motif. */
+
+:root {
+  --bg: #f7f2e9;
+  --panel: #fffdf8;
+  --line: #e0d5c0;
+  --ink: #2b2318;
+  --dim: #6f6353;
+  --accent: #8f1d1d;      /* heraldic gules */
+  --accent2: #b8860b;     /* old gold */
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a { color: var(--accent); }
+a:hover { color: var(--accent2); }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent2);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 0;
+  font-weight: 600;
+  z-index: 10;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------- header ---------- */
+
+header.site {
+  border-bottom: 3px double var(--line);
+  background: var(--panel);
+}
+
+.masthead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 0 12px;
+}
+
+.masthead .rooster { flex: none; }
+
+.masthead h1 {
+  font-size: 1.9rem;
+  margin: 0;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.masthead h1 a { color: var(--ink); text-decoration: none; }
+
+.masthead .tagline {
+  margin: 0;
+  color: var(--dim);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+nav.site {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  padding: 0 0 14px;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+nav.site a {
+  text-decoration: none;
+  color: var(--dim);
+  font-weight: 600;
+}
+
+nav.site a[aria-current="page"],
+nav.site a:hover { color: var(--accent); }
+
+/* ---------- content ---------- */
+
+main { padding: 40px 0 64px; }
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 0.4em;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1.6em 0 0.3em;
+}
+
+.lede {
+  font-size: 1.2rem;
+  color: var(--dim);
+  margin-top: 0;
+}
+
+.rule {
+  border: none;
+  border-top: 3px double var(--line);
+  margin: 2.2em auto;
+  width: 60%;
+}
+
+/* ---------- cards / figures ---------- */
+
+.figure-list { padding: 0; margin: 1.5em 0; list-style: none; }
+
+.figure-list li {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin-bottom: 14px;
+}
+
+.figure-list .who {
+  font-weight: 600;
+  font-size: 1.08rem;
+}
+
+.figure-list .dates {
+  color: var(--dim);
+  font-weight: 400;
+  font-size: 0.95rem;
+  margin-left: 6px;
+}
+
+.figure-list p { margin: 0.35em 0 0; }
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 1.5em 0;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px 22px;
+}
+
+.card h3 { margin-top: 0; }
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 4px 8px 4px 0;
+}
+
+.btn:hover { background: var(--accent2); color: #fff; }
+
+.btn.ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn.ghost:hover { color: var(--accent2); border-color: var(--accent2); background: transparent; }
+
+/* ---------- members table ---------- */
+
+table.members {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+  font-size: 1rem;
+}
+
+table.members th,
+table.members td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+table.members th {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--dim);
+}
+
+/* ---------- footer ---------- */
+
+footer.site {
+  border-top: 3px double var(--line);
+  background: var(--panel);
+  padding: 22px 0 30px;
+  color: var(--dim);
+  font-size: 0.92rem;
+}
+
+footer.site a { color: var(--dim); }
+
+@media (max-width: 540px) {
+  .masthead h1 { font-size: 1.5rem; }
+  main { padding: 28px 0 48px; }
+}
