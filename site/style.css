@@ -178,6 +178,49 @@ h3 {
 .figure-list .src a { color: var(--dim); }
 .figure-list .src a:hover { color: var(--accent); }
 
+.figure-list .portrait {
+  float: right;
+  width: 110px;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  margin: 4px 0 10px 16px;
+}
+
+.figure-list li::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* ---------- heraldry figure ---------- */
+
+figure.herald {
+  margin: 1.4em auto;
+  text-align: center;
+  max-width: 320px;
+}
+
+figure.herald img {
+  width: 200px;
+  height: auto;
+}
+
+figure.herald figcaption {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--dim);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+figure.herald figcaption a { color: var(--dim); }
+figure.herald figcaption a:hover { color: var(--accent); }
+
+@media (max-width: 540px) {
+  .figure-list .portrait { width: 84px; margin-left: 12px; }
+}
+
 .cols {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

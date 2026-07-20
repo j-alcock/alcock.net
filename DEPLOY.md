@@ -10,8 +10,8 @@ Requires repo secrets `DREAMHOST_HOST`, `DREAMHOST_USER`, `DREAMHOST_PASS`
 override the default docroots `~/alcock.net` and `~/jason.alcock.net`.
 `deploy.sh` below remains as the manual fallback.
 
-Site contact address is **admin@alcock.net** (jason@alcock.net stays personal,
-listed in the member register).
+Site contact address is **admin@alcock.net**. The maintainer is not named on
+the public site by design.
 
 - `site/` → docroot for **alcock.net** (4 pages + css + rooster.svg)
 - `jason/` → docroot for **jason.alcock.net** (1 page + css + rooster.svg)
@@ -54,7 +54,8 @@ anywhere, the script never reads a password.
 
 ## Adding a member later
 
-1. Add a row to the table in `site/join.html`.
+1. Set up whatever was requested (address, subdomain, or page) — there is no
+   public member register on the site.
 2. If they want `name.alcock.net`: add the subdomain in the panel pointing at
    their page (or a redirect to their existing site), or use Panel → DNS for
    a CNAME if they host elsewhere.
