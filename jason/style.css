@@ -119,6 +119,11 @@ h3 { font-size: 1.05rem; margin: 0 0 0.3em; }
 
 .lede { font-size: 1.15rem; color: var(--dim); }
 
+.section-links {
+  font-size: 0.95rem;
+  margin: -0.2em 0 1.2em;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -131,6 +136,8 @@ h3 { font-size: 1.05rem; margin: 0 0 0.3em; }
   border-radius: 10px;
   padding: 20px 22px;
 }
+
+.card.wide { grid-column: 1 / -1; }
 
 .card .meta {
   font-family: var(--mono);
@@ -183,6 +190,73 @@ h3 { font-size: 1.05rem; margin: 0 0 0.3em; }
   border: 1px solid var(--accent);
 }
 .btn.ghost:hover { color: var(--accent2); border-color: var(--accent2); background: transparent; }
+
+/* ---------- resume ---------- */
+
+.downloads { margin: 20px 0 0; }
+
+.btn.dl svg {
+  vertical-align: -3px;
+  margin-right: 8px;
+}
+
+.job { margin-bottom: 28px; }
+
+.job h3 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  color: var(--text);
+  margin-bottom: 0.2em;
+}
+
+.job .role {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--accent);
+  margin-left: 8px;
+}
+
+.job .when {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--dim);
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.job .context {
+  font-style: italic;
+  color: var(--dim);
+  font-size: 0.92rem;
+  margin: 0 0 0.4em;
+}
+
+.job p { margin: 0.3em 0 0; }
+
+blockquote.rec {
+  background: var(--panel);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  margin: 0 0 16px;
+  padding: 16px 20px;
+}
+
+blockquote.rec p {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  margin: 0;
+}
+
+blockquote.rec cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.88rem;
+  color: var(--dim);
+  margin-top: 10px;
+}
+
+.pending { color: var(--dim); }
 
 /* ---------- footer ---------- */
 
