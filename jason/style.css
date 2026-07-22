@@ -130,6 +130,12 @@ h3 { font-size: 1.05rem; margin: 0 0 0.3em; }
   gap: 16px;
 }
 
+.grid.two { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 600px) {
+  .grid.two { grid-template-columns: 1fr; }
+}
+
 .card {
   background: var(--panel);
   border: 1px solid var(--line);
