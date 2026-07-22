@@ -8,7 +8,9 @@ first resident.
   theme, rooster motif after Bishop John Alcock's rebus. Portraits and
   heraldry from Wikimedia Commons with per-image credits.
 - `jason/` — **jason.alcock.net**: dark cousin of the same theme. OurQA,
-  Breakbone Addons, punchjohneric, Catalyst, corp-engine, contact.
+  learning projects, resume page. Note: WoW addon work is described
+  generically only; the addon brand is deliberately not linked to the
+  personal identity here.
 - Static HTML/CSS only. No build step, no JS, no trackers.
 
 Deploy: see `DEPLOY.md` / `deploy.sh` (same conventions as ourqa-site — no
