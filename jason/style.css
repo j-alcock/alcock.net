@@ -175,21 +175,22 @@ h3 { font-size: 1.05rem; margin: 0 0 0.3em; }
   display: inline-block;
   font-weight: 600;
   font-size: 0.95rem;
-  background: var(--accent);
-  color: var(--bg);
+  background: var(--panel2);
+  color: var(--accent);
+  border: 1px solid var(--line);
   padding: 10px 20px;
   border-radius: 6px;
   text-decoration: none;
   margin: 6px 10px 0 0;
 }
-.btn:hover { background: var(--accent2); color: var(--bg); }
+.btn:hover { color: var(--accent2); border-color: var(--accent); background: var(--panel2); }
 
 .btn.ghost {
-  background: transparent;
+  background: var(--panel2);
   color: var(--accent);
-  border: 1px solid var(--accent);
+  border: 1px solid var(--line);
 }
-.btn.ghost:hover { color: var(--accent2); border-color: var(--accent2); background: transparent; }
+.btn.ghost:hover { color: var(--accent2); border-color: var(--accent); background: var(--panel2); }
 
 /* ---------- resume ---------- */
 
