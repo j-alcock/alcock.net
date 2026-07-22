@@ -111,7 +111,9 @@ jobs:
                      https://alcock.net/famous-alcocks.html \
                      https://alcock.net/name-history.html \
                      https://alcock.net/join.html \
-                     https://jason.alcock.net/; do
+                     https://jason.alcock.net/ \
+                     https://jason.alcock.net/resume/ \
+                     https://jason.alcock.net/resume/files/JasonAlcock.pdf; do
             code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$url" || echo 000)
             echo "$url -> HTTP $code"
             [ "$code" = "200" ] || fail=1
