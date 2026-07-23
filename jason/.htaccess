@@ -1,0 +1,5 @@
+# Belt-and-suspenders for non-HTML assets (images, PDFs) and any bot that
+# reads headers but not meta tags.
+<IfModule mod_headers.c>
+Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet, noimageindex, noai, noimageai"
+</IfModule>
